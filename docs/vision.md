@@ -171,7 +171,7 @@ Text extracted from the 13-slide vision deck in `mockups/vision-deck.html`; spea
 
 **Architecture: Ubuntu host agent and Quest client**
 
-- ekranaro-agent · Ubuntu 24.04
+- ekranaro-agent · Ubuntu 24.04 / 26.04 (Wayland)
 - per-window capture — xdg-desktop-portal + PipeWire
 - encode — H.265 via VA-API / NVENC, one stream per slot
 - input — libei / uinput keyboard and pointer injection
@@ -247,7 +247,7 @@ Text extracted from the 13-slide vision deck in `mockups/vision-deck.html`; spea
 - github.com/ekranaro/quest
 - github.com/ekranaro/spec
 - GOOD FIRST ISSUES
-- PipeWire per-window capture on KDE Plasma
+- PipeWire per-window capture on Wayland (Ubuntu 24.04 and 26.04)
 - VA-API encode path for Intel iGPUs
 - GitLab CI collector
 - Log alert patterns as a shared ruleset

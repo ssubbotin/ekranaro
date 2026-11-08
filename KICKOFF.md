@@ -16,7 +16,7 @@ Everything in `docs/` is a **vision**, not a validated design. The architecture 
 
 These are decided and are not up for re-litigation unless you find a blocker (if you do, say so explicitly and propose the smallest change):
 
-- Target hardware: **Meta Quest 3** (standalone), host: **Ubuntu 24.04** on Wayland.
+- Target hardware: **Meta Quest 3** (standalone), host: **Ubuntu 24.04 and 26.04** on Wayland.
 - **Per-window** capture, not monitor mirroring. Each window is a numbered slot.
 - Three modes — Focus, Deck, Wall — with the switching model described in `docs/plan.md`.
 - Keyboard-first: physical keyboard through passthrough; no virtual keyboard in v1.
@@ -29,7 +29,7 @@ These are decided and are not up for re-litigation unless you find a blocker (if
 
 Investigate the following and write one short markdown file per topic, each ending with a recommendation and the evidence behind it (links, version numbers, dates checked). Use the web; do not rely on memory for anything that changes year to year.
 
-1. **Per-window capture on Ubuntu 24.04 Wayland.** xdg-desktop-portal ScreenCast with per-window sources on GNOME and KDE: what actually works today, consent-dialog behaviour, restore tokens, cursor metadata, frame rates, DMA-BUF vs memfd. Alternatives if the portal path is insufficient (wlr-screencopy/ext-image-copy-capture, compositor-specific protocols, a custom compositor or nested compositor).
+1. **Per-window capture on Wayland, Ubuntu 24.04 and 26.04.** xdg-desktop-portal ScreenCast with per-window sources on GNOME and KDE: what actually works today, consent-dialog behaviour, restore tokens, cursor metadata, frame rates, DMA-BUF vs memfd. Alternatives if the portal path is insufficient (wlr-screencopy/ext-image-copy-capture, compositor-specific protocols, a custom compositor or nested compositor).
 2. **Encoding.** H.265/H.264/AV1 hardware encode on Linux: VA-API (Intel/AMD), NVENC; GStreamer vs FFmpeg vs direct APIs; latency figures for low-latency presets; what the Quest 3 can hardware-decode (codecs, resolutions, number of simultaneous streams).
 3. **Transport.** WebRTC (which stack: libwebrtc, webrtc-rs, GStreamer webrtcbin, str0m) vs QUIC/MoQ vs raw UDP with FEC. Latency, NAT/discovery over LAN, USB-C tethering options on Quest (adb reverse, USB networking), bitrate control per stream.
 4. **Quest 3 client platform.** OpenXR on Quest: native C++/Vulkan vs Unity vs Godot vs Unreal vs WebXR. Hardware video decode into textures (MediaCodec → AHardwareBuffer → Vulkan), hand tracking API, passthrough API, eye-tracking availability (Quest 3 has none — confirm and plan the head-pose "gaze" proxy), text rendering quality for terminals in VR, Horizon OS store / App Lab requirements.

@@ -12,6 +12,6 @@ Decisions taken during the design stage (Nov 2026). Append new entries with a da
 - **Switching:** numbered slot hotkeys (`Super+1…9`; the prototype uses `Alt+1…8` / `⌘K` as a flat-screen stand-in), `Super+K` or `/` fuzzy finder, glance (gaze dwell 0.7 s pulls a side pane forward), pinch (click) to pull a tile to Focus, swipe to rotate the deck.
 - **Text input:** physical keyboard through passthrough; no virtual keyboard in v1.
 - **Host / client split:** no PC-side VR runtime; host streams windows and data, spatial logic runs on the headset.
-- **Stack sketch (unvalidated):** Rust agent on Ubuntu 24.04; OpenXR native client (C++/Rust) on Quest 3; H.265 via VA-API/NVENC; WebRTC or QUIC transport; libei/uinput input injection; mDNS + QR pairing. To be confirmed by the research in [KICKOFF.md](../KICKOFF.md).
+- **Stack sketch (unvalidated):** Rust agent on Ubuntu 24.04 and 26.04 (Wayland); OpenXR native client (C++/Rust) on Quest 3; H.265 via VA-API/NVENC; WebRTC or QUIC transport; libei/uinput input injection; mDNS + QR pairing. To be confirmed by the research in [KICKOFF.md](../KICKOFF.md).
 - **License:** Apache-2.0.
 - **Repositories:** `agent`, `quest`, `spec` planned; this repo holds vision, plans and mockups.

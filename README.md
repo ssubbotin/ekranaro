@@ -44,7 +44,7 @@ Ekranaro treats each window as a slot, keeps switching on the keyboard, and adds
 ## Architecture
 
 ```
-ekranaro-agent (Ubuntu 24.04, Rust)          ekranaro-quest (OpenXR, Quest 3)
+ekranaro-agent (Ubuntu 24.04/26.04, Rust)    ekranaro-quest (OpenXR, Quest 3)
   per-window capture  xdg-desktop-portal      hardware H.265 decode → Vulkan textures
   encode              H.265 VA-API / NVENC    slots · modes · dock · wrist panel
   input               libei / uinput          hand tracking · head-pose gaze · passthrough
@@ -84,7 +84,7 @@ Planned code repos: `agent` (Ubuntu host), `quest` (OpenXR client) and `spec` (a
 
 ## Contributing
 
-Good first issues once code lands: KDE Plasma per-window capture, VA-API path for Intel iGPUs, GitLab CI collector, shared log alert ruleset, left-handed wrist panel. Until then, open an issue to discuss the design or the spec.
+Good first issues once code lands: Wayland per-window capture on Ubuntu 24.04 and 26.04, VA-API path for Intel iGPUs, GitLab CI collector, shared log alert ruleset, left-handed wrist panel. Until then, open an issue to discuss the design or the spec.
 
 ## License
 

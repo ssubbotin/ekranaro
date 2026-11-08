@@ -57,7 +57,7 @@ a{color:#7CFF9B}a:hover{color:#B8FFCB}
 
   <section style="display:flex;flex-direction:column;gap:16px">
     <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:22px;color:#7CFF9B">Architecture</h2>
-    <pre style="margin:0;padding:20px;border:1px solid rgba(214,220,216,.15);border-radius:4px;font-family:'DM Mono',monospace;font-size:14px;line-height:1.6;color:#D6DCD8;overflow:auto">ekranaro-agent (Ubuntu 24.04, Rust)          ekranaro-quest (OpenXR, Quest 3)
+    <pre style="margin:0;padding:20px;border:1px solid rgba(214,220,216,.15);border-radius:4px;font-family:'DM Mono',monospace;font-size:14px;line-height:1.6;color:#D6DCD8;overflow:auto">ekranaro-agent (Ubuntu 24.04/26.04, Rust)    ekranaro-quest (OpenXR, Quest 3)
   per-window capture  xdg-desktop-portal      hardware H.265 decode → Vulkan textures
   encode              H.265 VA-API / NVENC    slots · modes · dock · wrist panel
   input               libei / uinput          hand tracking · head-pose gaze · passthrough
@@ -79,7 +79,7 @@ a{color:#7CFF9B}a:hover{color:#B8FFCB}
 
   <section style="display:flex;flex-direction:column;gap:16px">
     <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:22px;color:#7CFF9B">Contributing</h2>
-    <p style="margin:0;text-wrap:pretty">Three repos: <span style="font-family:'DM Mono',monospace">agent</span>, <span style="font-family:'DM Mono',monospace">quest</span>, <span style="font-family:'DM Mono',monospace">spec</span>. The spec is a short protocol document for slots, modes and alerts, so other clients and agents can follow it. Good first issues: KDE Plasma per-window capture, VA-API path for Intel iGPUs, GitLab CI collector, shared log alert ruleset, left-handed wrist panel.</p>
+    <p style="margin:0;text-wrap:pretty">Three repos: <span style="font-family:'DM Mono',monospace">agent</span>, <span style="font-family:'DM Mono',monospace">quest</span>, <span style="font-family:'DM Mono',monospace">spec</span>. The spec is a short protocol document for slots, modes and alerts, so other clients and agents can follow it. Good first issues: Wayland per-window capture on Ubuntu 24.04 and 26.04, VA-API path for Intel iGPUs, GitLab CI collector, shared log alert ruleset, left-handed wrist panel.</p>
   </section>
 </div>
 </x-dc>

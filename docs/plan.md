@@ -64,7 +64,7 @@ Immersed: Linux virtual displays only on GNOME Wayland. WayVR and Stardust XR ne
 
 ## Architecture
 
-**ekranaro-agent · Ubuntu 24.04**
+**ekranaro-agent · Ubuntu 24.04 / 26.04 (Wayland)**
 - per-window capture — xdg-desktop-portal + PipeWire
 - encode — H.265 via VA-API / NVENC, one stream per slot
 - input — libei / uinput keyboard and pointer injection
@@ -111,7 +111,7 @@ Two repos, one spec. The slot and mode model is a small protocol document, so cl
 - `ekranaro/spec`
 
 Good first issues:
-- PipeWire per-window capture on KDE Plasma
+- PipeWire per-window capture on Wayland (Ubuntu 24.04 and 26.04)
 - VA-API encode path for Intel iGPUs
 - GitLab CI collector
 - Log alert patterns as a shared ruleset
