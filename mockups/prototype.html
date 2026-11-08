@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#0B0D10;color:#D6DCD8;font-family:'DM Mono',ui-monospace,monospace;}
+a{color:#7CFF9B}a:hover{color:#B8FFCB}
+*{box-sizing:border-box}
+::-webkit-scrollbar{width:0;height:0}
+</style>
+</helmet>
+<div style="width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0B0D10;padding:16px;gap:12px">
+  <div tabindex="0" onKeyDown="{{ onKey }}" style="position:relative;width:100%;max-width:1600px;aspect-ratio:16/9;overflow:hidden;border-radius:6px;outline:none;perspective:1800px;perspective-origin:50% 45%;background:{{ bg }};">
+    <div style="position:absolute;inset:0;background:{{ floor }};pointer-events:none"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 40%, rgba(0,0,0,.55) 100%);pointer-events:none"></div>
+
+    <sc-for list="{{ wins }}" as="w" hint-placeholder-count="8">
+      <div onMouseEnter="{{ w.enter }}" onMouseLeave="{{ w.leave }}" onClick="{{ w.click }}" style="position:absolute;left:{{ w.x }}%;top:{{ w.y }}%;width:32%;aspect-ratio:16/10;transform:perspective(1800px) translate(-50%,-50%) translateZ({{ w.tz }}px) rotateY({{ w.rot }}deg) scale({{ w.scale }});opacity:{{ w.op }};z-index:{{ w.z }};will-change:transform,left,top,opacity;backface-visibility:hidden;transition:left .55s cubic-bezier(.25,.1,.25,1),top .55s cubic-bezier(.25,.1,.25,1),transform .55s cubic-bezier(.25,.1,.25,1),opacity .45s ease,border-color .3s,box-shadow .4s;background:rgba(11,13,16,.92);border:1px solid {{ w.border }};box-shadow:{{ w.shadow }};border-radius:4px;display:flex;flex-direction:column;overflow:hidden;cursor:pointer;container-type:inline-size">
+        <div style="display:flex;align-items:center;gap:1.5cqw;padding:1.2cqw 1.8cqw;border-bottom:1px solid rgba(124,255,155,.15);font-size:2.2cqw;line-height:1;color:#6B7570;white-space:nowrap;overflow:hidden">
+          <span style="color:{{ w.slotColor }};font-weight:500">{{ w.slotLabel }}</span>
+          <span style="color:#D6DCD8;overflow:hidden;text-overflow:ellipsis">{{ w.title }}</span>
+          <span style="margin-left:auto;color:{{ w.tagColor }}">{{ w.tag }}</span>
+        </div>
+        <div style="position:absolute;left:0;top:0;height:2px;width:{{ w.glanceW }};background:#7CFF9B;transition:width .7s linear"></div>
+        <sc-if value="{{ w.isLines }}" hint-placeholder-val="{{ true }}">
+          <div style="flex:1;padding:1.4cqw 1.8cqw;font-size:2.1cqw;line-height:1.55;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start">
+            <sc-for list="{{ w.lines }}" as="l" hint-placeholder-count="10">
+              <div style="white-space:pre;color:{{ l.c }};overflow:hidden;text-overflow:ellipsis">{{ l.t }}</div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ w.isCi }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;padding:1.4cqw 1.8cqw;font-size:2.1cqw;line-height:1.5;display:flex;flex-direction:column;gap:.8cqw;overflow:hidden">
+            <sc-for list="{{ w.rows }}" as="r" hint-placeholder-count="6">
+              <div style="display:grid;grid-template-columns:2.4cqw 1fr auto auto;gap:1.6cqw;align-items:center;white-space:nowrap">
+                <span style="width:1.6cqw;height:1.6cqw;border-radius:50%;background:{{ r.c }};box-shadow:0 0 .8cqw {{ r.c }}"></span>
+                <span style="overflow:hidden;text-overflow:ellipsis;color:#D6DCD8">{{ r.name }}</span>
+                <span style="color:#6B7570">{{ r.branch }}</span>
+                <span style="color:{{ r.c }}">{{ r.status }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ w.isDash }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;padding:1.4cqw 1.8cqw;display:grid;grid-template-columns:1fr 1fr;gap:1.4cqw;font-size:2cqw;overflow:hidden">
+            <sc-for list="{{ w.metrics }}" as="m" hint-placeholder-count="4">
+              <div style="border:1px solid rgba(214,220,216,.1);padding:1.2cqw;display:flex;flex-direction:column;gap:.6cqw;min-width:0">
+                <span style="color:#6B7570;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.name }}</span>
+                <span style="color:{{ m.c }};font-size:3.4cqw;line-height:1">{{ m.val }}</span>
+                <div style="display:flex;align-items:flex-end;gap:.3cqw;height:3cqw">
+                  <sc-for list="{{ m.bars }}" as="b" hint-placeholder-count="12">
+                    <div style="flex:1;height:{{ b.h }}%;background:{{ b.c }};opacity:.8"></div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ w.isChat }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;padding:1.4cqw 1.8cqw;font-size:2.1cqw;line-height:1.5;display:flex;flex-direction:column;gap:1cqw;overflow:hidden;justify-content:flex-end">
+            <sc-for list="{{ w.msgs }}" as="m" hint-placeholder-count="5">
+              <div style="display:flex;flex-direction:column;gap:.2cqw;min-width:0">
+                <div style="display:flex;gap:1.2cqw;color:#6B7570;white-space:nowrap"><span style="color:{{ m.c }}">{{ m.who }}</span><span>{{ m.when }}</span></div>
+                <div style="color:#D6DCD8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ m.text }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </sc-for>
+
+    <div style="position:absolute;left:1.6%;top:3%;z-index:50;display:flex;flex-direction:column;gap:6px;padding:10px 12px;background:rgba(11,13,16,.85);border:1px solid rgba(124,255,155,.25);border-radius:4px;font-size:clamp(9px,.8vw,13px);line-height:1.3;min-width:150px">
+      <div style="display:flex;justify-content:space-between;gap:16px"><span style="color:#7CFF9B;font-weight:500">EKRANARO</span><span style="color:#6B7570">{{ clock }}</span></div>
+      <div style="display:flex;gap:4px">
+        <button onClick="{{ setFocus }}" style="flex:1;font:inherit;padding:4px 0;border:1px solid {{ focusB }};background:{{ focusBg }};color:{{ focusC }};cursor:pointer;border-radius:2px">F focus</button>
+        <button onClick="{{ setDeck }}" style="flex:1;font:inherit;padding:4px 0;border:1px solid {{ deckB }};background:{{ deckBg }};color:{{ deckC }};cursor:pointer;border-radius:2px">D deck</button>
+        <button onClick="{{ setWall }}" style="flex:1;font:inherit;padding:4px 0;border:1px solid {{ wallB }};background:{{ wallBg }};color:{{ wallC }};cursor:pointer;border-radius:2px">W wall</button>
+      </div>
+      <div style="display:flex;justify-content:space-between;gap:16px;color:#6B7570"><span>host ubuntu-24.04</span><span style="color:#7CFF9B">11 ms</span></div>
+      <div style="display:flex;justify-content:space-between;gap:16px;color:#6B7570"><span>alerts</span><span style="color:{{ alertColor }}">{{ alertCount }}</span></div>
+    </div>
+
+    <sc-if value="{{ hintsOn }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;left:50%;bottom:1.5%;transform:translateX(-50%);z-index:50;display:flex;gap:18px;padding:7px 14px;background:rgba(11,13,16,.8);border:1px solid rgba(214,220,216,.12);border-radius:4px;font-size:clamp(9px,.75vw,12px);color:#6B7570;white-space:nowrap">
+        <span><span style="color:#D6DCD8">1–8</span> slot</span>
+        <span><span style="color:#D6DCD8">⌘K</span> find</span>
+        <span><span style="color:#D6DCD8">F D W</span> mode</span>
+        <span><span style="color:#D6DCD8">← →</span> swipe</span>
+        <span><span style="color:#D6DCD8">hover</span> glance</span>
+        <span><span style="color:#D6DCD8">click</span> pinch</span>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ finderOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:90;background:rgba(5,6,8,.55);display:flex;align-items:flex-start;justify-content:center;padding-top:14%">
+        <div style="width:min(520px,70%);background:#0B0D10;border:1px solid #7CFF9B;border-radius:4px;box-shadow:0 0 40px rgba(124,255,155,.2);overflow:hidden">
+          <div style="display:flex;gap:10px;padding:12px 14px;border-bottom:1px solid rgba(124,255,155,.2);font-size:clamp(12px,1vw,16px)">
+            <span style="color:#7CFF9B">›</span>
+            <input ref="{{ finderRef }}" value="{{ query }}" onChange="{{ onQuery }}" placeholder="jump to window…" style="flex:1;background:none;border:none;outline:none;color:#D6DCD8;font:inherit"/>
+          </div>
+          <sc-for list="{{ results }}" as="r" hint-placeholder-count="4">
+            <div onClick="{{ r.pick }}" style="display:flex;gap:12px;padding:8px 14px;font-size:clamp(11px,.9vw,14px);background:{{ r.bg }};color:#D6DCD8;cursor:pointer">
+              <span style="color:#7CFF9B;width:14px">{{ r.slot }}</span>
+              <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ r.title }}</span>
+              <span style="color:#6B7570">{{ r.tag }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+  <div style="font-size:12px;color:#6B7570;text-align:center;max-width:900px;text-wrap:pretty">Flat simulation of the in-headset view. Click the stage once, then use keys. Hover a side pane to glance (0.7 s dwell pulls it forward), click to pinch.</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;background&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;passthrough&quot;,&quot;void&quot;],&quot;default&quot;:&quot;passthrough&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Environment&quot;},&quot;gazeDwell&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Interaction&quot;},&quot;wallDim&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Interaction&quot;},&quot;showHints&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;HUD&quot;}}">
+class Component extends DCLogic {
+  state = { mode: 'focus', focus: 0, glance: -1, finderOpen: false, query: '', sel: 0, tick: 0, alerts: {}, acked: {} };
+  finderRef = React.createRef();
+  G = '#7CFF9B'; A = '#FFB347'; R = '#FF6B6B'; T = '#D6DCD8'; D = '#6B7570'; B = '#5EC8FF';
+  logPool = [
+    ['INFO  api  GET /v1/orders 200 42ms', '#D6DCD8'], ['INFO  api  POST /v1/checkout 201 118ms', '#D6DCD8'],
+    ['WARN  api  redis latency 240ms', '#FFB347'], ['INFO  api  GET /healthz 200 2ms', '#6B7570'],
+    ['INFO  worker job=email.send ok', '#D6DCD8'], ['INFO  api  GET /v1/users/me 200 19ms', '#D6DCD8'],
+    ['DEBUG cache hit ratio 0.93', '#6B7570'], ['INFO  api  PUT /v1/cart 200 61ms', '#D6DCD8']];
+  logs = []; deploy = []; ssh = [];
+  componentDidMount() {
+    this.deploy = [
+      ['$ git log --oneline -1', this.G], ['9f3c1e2 api: retry budget for payments (#412)', this.T],
+      ['$ make release VERSION=2.14.0', this.G], ['docker build -t registry.internal/api:2.14.0 .', this.D],
+      ['=> exporting layers                          2.1s', this.D], ['=> pushing registry.internal/api:2.14.0      6.8s', this.D],
+      ['$ kubectl -n prod set image deploy/api api=registry.internal/api:2.14.0', this.G], ['deployment.apps/api image updated', this.T],
+      ['$ kubectl -n prod rollout status deploy/api', this.G], ['Waiting for deployment "api" rollout to finish:', this.T],
+      ['  2 of 6 updated replicas are available...', this.T], ['  4 of 6 updated replicas are available...', this.T]];
+    this.ssh = [
+      ['ubuntu@db-01:~$ sudo -u postgres psql -c "select count(*) from pg_stat_activity"', this.G],
+      [' count', this.T], ['-------', this.D], ['    87', this.T], ['ubuntu@db-01:~$ df -h /var/lib/postgresql', this.G],
+      ['/dev/nvme1n1  1.8T  1.2T  540G  69%', this.T], ['ubuntu@db-01:~$ _', this.G]];
+    for (let i = 0; i < 15; i++) this.logs.push(this.logPool[i % this.logPool.length]);
+    this.timer = setInterval(() => {
+      const t = this.state.tick + 1;
+      const al = { ...this.state.alerts };
+      if (t % 2 === 0) { this.logs.push(this.logPool[Math.floor(Math.random() * this.logPool.length)]); if (this.logs.length > 16) this.logs.shift(); }
+      if (t === 5) this.deploy.push(['  6 of 6 updated replicas are available...', this.T], ['deployment "api" successfully rolled out', this.G], ['$ _', this.G]);
+      if (t === 7 && !this.state.acked.ci) al.ci = true;
+      if (t === 11 && !this.state.acked.logs) { this.logs.push(['ERROR api  upstream timeout payments-svc (3 retries)', this.R]); al.logs = true; }
+      this.setState({ tick: t, alerts: al });
+    }, 1200);
+  }
+  componentWillUnmount() { clearInterval(this.timer); clearTimeout(this.dwell); }
+  windows() {
+    const g = Math.floor(this.state.tick / 3), ciFail = this.state.alerts.ci || this.state.acked.ci;
+    return [
+      { id: 'deploy', title: 'tmux: deploy', tag: 'term', lines: this.deploy },
+      { id: 'logs', title: 'tail: api.log', tag: 'term', lines: this.logs },
+      { id: 'code', title: 'nvim: deploy/api.yaml', tag: 'code', lines: [
+        ['apiVersion: apps/v1', this.B], ['kind: Deployment', this.B], ['metadata:', this.B], ['  name: api', this.T],
+        ['spec:', this.B], ['  replicas: 6', this.T], ['  strategy:', this.B], ['    rollingUpdate:', this.B],
+        ['      maxSurge: 2', this.T], ['      maxUnavailable: 0', this.G]] },
+      { id: 'ssh', title: 'ssh: db-01', tag: 'term', lines: this.ssh },
+      { id: 'ci', title: 'CI: github actions', tag: 'native', rows: [
+        { name: 'api · build-and-test', branch: 'main', status: 'passed', c: this.G },
+        { name: 'api · deploy-prod', branch: 'main', status: g < 2 ? 'running' : 'passed', c: g < 2 ? this.A : this.G },
+        { name: 'web · e2e', branch: 'feat/cart', status: ciFail ? 'failed' : 'running', c: ciFail ? this.R : this.A },
+        { name: 'infra · terraform plan', branch: 'main', status: 'passed', c: this.G },
+        { name: 'worker · build', branch: 'fix/retry', status: 'queued', c: this.D }] },
+      { id: 'dash', title: 'grafana: prod overview', tag: 'web', metrics: [
+        { name: 'p95 latency', val: (118 + (g % 5) * 7) + ' ms', c: this.G, bars: this.bars(g, 40, 90) },
+        { name: 'error rate', val: (0.2 + (g > 3 ? 1.1 : 0)).toFixed(1) + ' %', c: g > 3 ? this.R : this.G, bars: this.bars(g, 10, g > 3 ? 95 : 30) },
+        { name: 'rps', val: (1840 + (g % 7) * 23), c: this.T, bars: this.bars(g + 3, 50, 100) },
+        { name: 'pods ready', val: g < 2 ? '4 / 6' : '6 / 6', c: g < 2 ? this.A : this.G, bars: this.bars(g, 60, 100) }] },
+      { id: 'chat', title: 'mattermost: #ops', tag: 'web', msgs: [
+        { who: 'marta', when: '14:28', text: 'rolling api 2.14.0 to prod now', c: this.B },
+        { who: 'ci-bot', when: '14:29', text: 'deploy-prod started · main @ 9f3c1e', c: this.D },
+        { who: 'jonas', when: '14:30', text: 'db-01 disk at 69%, scheduling vacuum tonight', c: this.A },
+        { who: 'marta', when: '14:31', text: 'ack. watching p95', c: this.B }] },
+      { id: 'mail', title: 'mail: inbox', tag: 'web', msgs: [
+        { who: 'PagerDuty', when: '13:50', text: 'Resolved: disk pressure db-02', c: this.G },
+        { who: 'GitHub', when: '13:12', text: '[api] PR #412 approved: retry budget for payments', c: this.T },
+        { who: 'AWS Billing', when: '09:00', text: 'October invoice available', c: this.D }] }
+    ];
+  }
+  bars(seed, lo, hi) { const a = []; for (let i = 0; i < 12; i++) { const h = lo + ((seed * 7 + i * 13) % (hi - lo)); a.push({ h, c: h > 85 ? this.R : this.G }); } return a; }
+  layout(n, f, mode) {
+    const L = Array(n), dock = [];
+    for (let i = 0; i < n; i++) L[i] = null;
+    const m = (k) => ((k % n) + n) % n;
+    if (mode === 'wall') {
+      for (let i = 0; i < n; i++) L[i] = { x: 16 + (i % 4) * 23.4, y: 36 + Math.floor(i / 4) * 38, w: 21.5, rot: 0, scale: 1, op: 1, z: 5 };
+    } else if (mode === 'deck') {
+      const spec = [[-2, 10, 22, 42, -320], [-1, 29, 27, 22, -120], [0, 50, 32, 0, 0], [1, 71, 27, -22, -120], [2, 90, 22, -42, -320]];
+      spec.forEach(([d, x, w, rot, tz]) => { L[m(f + d)] = { x, y: 45, w, rot, scale: 1, op: d === 0 ? 1 : .8, z: 10 - Math.abs(d), tz }; });
+    } else {
+      L[f] = { x: 50, y: 45, w: 56, rot: 0, scale: 1, op: 1, z: 10 };
+      L[m(f - 1)] = { x: 14, y: 45, w: 30, rot: 32, scale: .92, op: .6, z: 5, tz: -260 };
+      L[m(f + 1)] = { x: 86, y: 45, w: 30, rot: -32, scale: .92, op: .6, z: 5, tz: -260 };
+    }
+    for (let i = 0; i < n; i++) if (!L[i]) dock.push(i);
+    dock.forEach((i, k) => { L[i] = { x: 50 + (k - (dock.length - 1) / 2) * 10.5, y: 85, w: 9.5, rot: 0, scale: 1, op: .7, z: 3 }; });
+    return L;
+  }
+  go(i) { clearTimeout(this.dwell); const acked = { ...this.state.acked }, alerts = { ...this.state.alerts }; const id = this.windows()[i].id; if (alerts[id]) { acked[id] = true; delete alerts[id]; } this.setState({ focus: i, glance: -1, alerts, acked, finderOpen: false, query: '' }); }
+  onKey = (e) => {
+    const k = e.key, n = 8, s = this.state;
+    if (s.finderOpen) {
+      const res = this.results();
+      if (k === 'Escape') this.setState({ finderOpen: false, query: '' });
+      else if (k === 'ArrowDown') this.setState({ sel: Math.min(s.sel + 1, res.length - 1) });
+      else if (k === 'ArrowUp') this.setState({ sel: Math.max(s.sel - 1, 0) });
+      else if (k === 'Enter' && res[s.sel]) this.go(res[s.sel].i);
+      return;
+    }
+    if ((e.metaKey || e.ctrlKey) && k.toLowerCase() === 'k' || k === '/') { e.preventDefault(); this.setState({ finderOpen: true, sel: 0, query: '' }, () => this.finderRef.current && this.finderRef.current.focus()); return; }
+    if (/^[1-8]$/.test(k)) { this.go(+k - 1); return; }
+    const kl = k.toLowerCase();
+    if (kl === 'f') this.setState({ mode: 'focus' }); else if (kl === 'd') this.setState({ mode: 'deck' }); else if (kl === 'w') this.setState({ mode: 'wall' });
+    else if (k === 'ArrowRight') this.go((s.focus + 1) % n); else if (k === 'ArrowLeft') this.go((s.focus + n - 1) % n);
+    else if (k === 'Tab') { e.preventDefault(); this.setState({ mode: s.mode === 'focus' ? 'deck' : s.mode === 'deck' ? 'wall' : 'focus' }); }
+  };
+  results() {
+    const q = this.state.query.toLowerCase();
+    return this.windows().map((w, i) => ({ ...w, i })).filter(w => !q || (w.title + ' ' + w.tag).toLowerCase().includes(q));
+  }
+  renderVals() {
+    const s = this.state, p = this.props, ws = this.windows(), L = this.layout(ws.length, s.focus, s.mode);
+    const bgVoid = (p.background ?? 'passthrough') === 'void';
+    const btn = (m) => ({ b: s.mode === m ? this.G : 'rgba(214,220,216,.2)', bg: s.mode === m ? 'rgba(124,255,155,.12)' : 'transparent', c: s.mode === m ? this.G : this.D });
+    const F = btn('focus'), Dk = btn('deck'), W = btn('wall');
+    const alertCount = Object.keys(s.alerts).length;
+    const wins = ws.map((w, i) => {
+      const l = L[i], focused = i === s.focus, al = !!s.alerts[w.id], gl = s.glance === i, wall = s.mode === 'wall';
+      const dim = wall && !al && !focused && (p.wallDim ?? true);
+      return {
+        ...w, x: l.x, y: l.y, w: l.w, tz: gl ? (l.tz || 0) / 2 : (l.tz || 0), rot: gl ? l.rot * .6 : l.rot, scale: (l.w / 32) * l.scale * (gl ? 1.06 : 1),
+        op: gl ? 1 : dim ? .5 : l.op, z: gl ? 30 : l.z,
+        border: al ? this.R : focused ? this.G : gl ? 'rgba(124,255,155,.6)' : 'rgba(214,220,216,.18)',
+        shadow: al ? '0 0 36px rgba(255,107,107,.35)' : focused ? '0 0 40px rgba(124,255,155,.15), 0 30px 60px rgba(0,0,0,.6)' : '0 20px 50px rgba(0,0,0,.5)',
+        slotLabel: '[' + (i + 1) + ']', slotColor: al ? this.R : focused ? this.G : this.D,
+        tagColor: w.tag === 'native' ? this.B : this.D, glanceW: gl ? '100%' : '0%',
+        isLines: !!w.lines, isCi: !!w.rows, isDash: !!w.metrics, isChat: !!w.msgs,
+        lines: (w.lines || []).map(([t, c]) => ({ t, c })),
+        enter: () => { if (focused || s.glance === i) return; this.setState({ glance: i }); clearTimeout(this.dwell); this.dwell = setTimeout(() => { if (this.state.glance === i && (p.gazeDwell ?? true)) this.go(i); }, 700); },
+        leave: () => { clearTimeout(this.dwell); if (this.state.glance === i) this.setState({ glance: -1 }); },
+        click: () => this.go(i)
+      };
+    });
+    const res = this.results().map((r, k) => ({ slot: r.i + 1, title: r.title, tag: r.tag, bg: k === s.sel ? 'rgba(124,255,155,.1)' : 'transparent', pick: () => this.go(r.i) }));
+    const d = new Date();
+    return {
+      wins, onKey: this.onKey, clock: String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'),
+      bg: bgVoid ? '#0B0D10' : 'linear-gradient(180deg,#141a1f 0%,#0e1215 55%,#0b0d10 100%)',
+      floor: bgVoid ? 'none' : 'linear-gradient(180deg,rgba(0,0,0,0) 58%,rgba(124,255,155,.04) 59%,rgba(0,0,0,0) 60%), repeating-linear-gradient(90deg,rgba(214,220,216,.035) 0 1px,transparent 1px 7%), repeating-linear-gradient(180deg,transparent 0 58%,rgba(214,220,216,.04) 58% calc(58% + 1px),transparent calc(58% + 1px) 100%)',
+      setFocus: () => this.setState({ mode: 'focus' }), setDeck: () => this.setState({ mode: 'deck' }), setWall: () => this.setState({ mode: 'wall' }),
+      focusB: F.b, focusBg: F.bg, focusC: F.c, deckB: Dk.b, deckBg: Dk.bg, deckC: Dk.c, wallB: W.b, wallBg: W.bg, wallC: W.c,
+      alertCount, alertColor: alertCount ? this.R : this.G, hintsOn: p.showHints ?? true,
+      finderOpen: s.finderOpen, finderRef: this.finderRef, query: s.query, onQuery: (e) => this.setState({ query: e.target.value, sel: 0 }), results: res
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#0B0D10;color:#D6DCD8;font-family:'DM Sans',Helvetica,sans-serif;}
+a{color:#7CFF9B}a:hover{color:#B8FFCB}
+*{box-sizing:border-box}
+</style>
+</helmet>
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+
+<section data-label="Title" data-speaker-notes="Ekranaro: Esperanto for 'a collection of screens'. Open-source VR workspace for ops engineers, Ubuntu host, Quest 3 client." style="background:#0B0D10;color:#D6DCD8;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:100px;gap:80px;font-family:'DM Sans',sans-serif">
+  <div style="display:flex;flex-direction:column;gap:40px">
+    <div style="font-family:'DM Mono',monospace;font-size:28px;color:#7CFF9B;letter-spacing:.2em">OPEN SOURCE · VISION</div>
+    <h1 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:120px;line-height:1;color:#D6DCD8">Ekranaro</h1>
+    <p style="margin:0;font-size:40px;line-height:1.3;color:#D6DCD8;text-wrap:pretty">A cockpit of screens for DevOps work, on Meta Quest 3.</p>
+    <p style="margin:0;font-family:'DM Mono',monospace;font-size:26px;color:#6B7570">ekran·aro — Esperanto, “a set of screens”</p>
+  </div>
+  <img src="shots/focus.jpg" alt="Focus mode in headset" style="width:100%;border:1px solid rgba(124,255,155,.3);border-radius:6px;box-shadow:0 40px 80px rgba(0,0,0,.6)">
+</section>
+
+<section data-label="The ops workday" data-speaker-notes="Count what a typical on-call engineer keeps open. The screen is the bottleneck, not the tools." style="background:#0B0D10;color:#D6DCD8;display:flex;flex-direction:column;padding:100px 100px 80px;gap:52px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:64px;line-height:1.1">The ops workday: many small windows, one pair of eyes</h2>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;flex:1;align-items:start;margin-top:40px">
+    <div style="display:flex;flex-direction:column;gap:16px;border-top:1px solid rgba(124,255,155,.3);padding-top:28px"><span style="font-family:'DM Mono',monospace;font-size:96px;line-height:1;color:#7CFF9B">8–20</span><span style="font-size:32px;color:#D6DCD8">terminals and SSH sessions open at once</span></div>
+    <div style="display:flex;flex-direction:column;gap:16px;border-top:1px solid rgba(124,255,155,.3);padding-top:28px"><span style="font-family:'DM Mono',monospace;font-size:96px;line-height:1;color:#7CFF9B">3–5</span><span style="font-size:32px;color:#D6DCD8">CI pipelines and dashboards to watch during a rollout</span></div>
+    <div style="display:flex;flex-direction:column;gap:16px;border-top:1px solid rgba(124,255,155,.3);padding-top:28px"><span style="font-family:'DM Mono',monospace;font-size:96px;line-height:1;color:#7CFF9B">2</span><span style="font-size:32px;color:#D6DCD8">chat and mail apps that interrupt</span></div>
+    <div style="display:flex;flex-direction:column;gap:16px;border-top:1px solid rgba(124,255,155,.3);padding-top:28px"><span style="font-family:'DM Mono',monospace;font-size:96px;line-height:1;color:#FFB347">1–2</span><span style="font-size:32px;color:#D6DCD8">physical monitors to fit all of it on</span></div>
+  </div>
+  <p style="margin:0;font-size:34px;color:#6B7570;max-width:1400px;text-wrap:pretty">Alt-tab, tmux prefixes and workspace hotkeys exist because the glass is too small. A headset removes the glass limit, but current VR desktops only give you bigger glass.</p>
+</section>
+
+<section data-label="Existing VR desktops" data-speaker-notes="Landscape as of Nov 2026. Virtual Desktop has no Linux host. Immersed supports Linux but virtual displays only on GNOME Wayland. WayVR and Stardust XR are the open-source Linux-native options but mirror screens, not workflows." style="background:#0B0D10;color:#D6DCD8;display:flex;flex-direction:column;padding:100px 100px 80px;gap:52px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:64px;line-height:1.1">Existing VR desktops and where they stop</h2>
+  <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1.2fr 1fr;font-size:30px;line-height:1.3;border-top:1px solid rgba(214,220,216,.25)">
+    <div style="padding:22px 16px 22px 0;color:#6B7570;font-family:'DM Mono',monospace;font-size:24px">Product</div><div style="padding:22px 16px;color:#6B7570;font-family:'DM Mono',monospace;font-size:24px">Ubuntu host</div><div style="padding:22px 16px;color:#6B7570;font-family:'DM Mono',monospace;font-size:24px">Screens on Q3</div><div style="padding:22px 16px;color:#6B7570;font-family:'DM Mono',monospace;font-size:24px">Unit of work</div><div style="padding:22px 16px;color:#6B7570;font-family:'DM Mono',monospace;font-size:24px">License</div>
+    <div style="padding:22px 16px 22px 0;border-top:1px solid rgba(214,220,216,.12)">Virtual Desktop</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12);color:#FF6B6B">no</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12)">3</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12)">monitor</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12)">paid, closed</div>
+    <div style="padding:22px 16px 22px 0;border-top:1px solid rgba(214,220,216,.12)">Immersed</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12);color:#FFB347">partial</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12)">5</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12)">monitor</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12)">freemium, closed</div>
+    <div style="padding:22px 16px 22px 0;border-top:1px solid rgba(214,220,216,.12)">Horizon Workrooms</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12);color:#FF6B6B">no</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12)">3</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12)">monitor</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12)">free, closed</div>
+    <div style="padding:22px 16px 22px 0;border-top:1px solid rgba(214,220,216,.12)">WayVR (WlxOverlay-S)</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12);color:#7CFF9B">yes</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12)">any</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12)">screen / app</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12)">open</div>
+    <div style="padding:22px 16px 22px 0;border-top:1px solid rgba(214,220,216,.12)">Stardust XR</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12);color:#7CFF9B">yes</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12)">any</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12)">window (3D shell)</div><div style="padding:22px 16px;border-top:1px solid rgba(214,220,216,.12)">open, early</div>
+  </div>
+  <p style="margin:0;font-size:28px;color:#6B7570">Immersed: Linux virtual displays only on GNOME Wayland. WayVR and Stardust XR need a PC-side OpenXR runtime (Monado/WiVRn) and have no notion of ops workflows.</p>
+</section>
+
+<section data-label="The gap" data-speaker-notes="Three things none of them do." style="background:#0E1215;color:#D6DCD8;display:flex;flex-direction:column;padding:100px 100px 80px;gap:52px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:64px;line-height:1.1">The gap: monitors in space, not workflows in space</h2>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:60px;margin-top:40px">
+    <div style="display:flex;flex-direction:column;gap:20px"><span style="font-family:'DM Mono',monospace;font-size:28px;color:#7CFF9B">01</span><span style="font-size:40px;line-height:1.2;color:#D6DCD8">They stream whole monitors. Ops work is per window: one terminal, one log, one pipeline.</span></div>
+    <div style="display:flex;flex-direction:column;gap:20px"><span style="font-family:'DM Mono',monospace;font-size:28px;color:#7CFF9B">02</span><span style="font-size:40px;line-height:1.2;color:#D6DCD8">Switching means grabbing and dragging a panel. On a desk it is one keystroke.</span></div>
+    <div style="display:flex;flex-direction:column;gap:20px"><span style="font-family:'DM Mono',monospace;font-size:28px;color:#7CFF9B">03</span><span style="font-size:40px;line-height:1.2;color:#D6DCD8">Nothing knows what an alert is. A failing job looks the same as a passing one until you look.</span></div>
+  </div>
+</section>
+
+<section data-label="Concept" data-speaker-notes="Core model: every window is a numbered slot. Three spatial modes rearrange the same slots. Alerts change a slot's state." style="background:#0B0D10;color:#D6DCD8;display:flex;flex-direction:column;padding:100px 100px 80px;gap:52px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:64px;line-height:1.1">Concept: windows, slots and three modes</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:20px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:36px;font-size:34px;line-height:1.35">
+      <p style="margin:0"><span style="font-family:'DM Mono',monospace;color:#7CFF9B">Windows, not monitors.</span> Each Ubuntu window is captured on its own and becomes a slot <span style="font-family:'DM Mono',monospace">[1]…[9]</span>.</p>
+      <p style="margin:0"><span style="font-family:'DM Mono',monospace;color:#7CFF9B">Three modes, same slots.</span> Focus, Deck and Wall rearrange the slots around you. Nothing is lost between modes.</p>
+      <p style="margin:0"><span style="font-family:'DM Mono',monospace;color:#7CFF9B">Alerts find you.</span> A slot can turn red from a log line, a CI result or a dashboard threshold, in any mode.</p>
+      <p style="margin:0"><span style="font-family:'DM Mono',monospace;color:#7CFF9B">Native panels where streaming is wasteful.</span> CI board and alert feed render in the headset from APIs, not from pixels.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;font-family:'DM Mono',monospace;font-size:26px">
+      <div style="border:1px solid rgba(124,255,155,.35);padding:28px;display:flex;flex-direction:column;gap:14px;min-height:300px"><span style="color:#7CFF9B">F · Focus</span><span style="color:#6B7570;font-family:'DM Sans',sans-serif;font-size:26px;line-height:1.3">One slot large, neighbours peeking at the sides, the rest in a dock.</span></div>
+      <div style="border:1px solid rgba(124,255,155,.35);padding:28px;display:flex;flex-direction:column;gap:14px;min-height:300px"><span style="color:#7CFF9B">D · Deck</span><span style="color:#6B7570;font-family:'DM Sans',sans-serif;font-size:26px;line-height:1.3">Five slots in an arc at reading distance, like tmux panes with depth.</span></div>
+      <div style="border:1px solid rgba(124,255,155,.35);padding:28px;display:flex;flex-direction:column;gap:14px;min-height:300px"><span style="color:#7CFF9B">W · Wall</span><span style="color:#6B7570;font-family:'DM Sans',sans-serif;font-size:26px;line-height:1.3">Every slot on a wall of monitors, dimmed, except what is alerting.</span></div>
+    </div>
+  </div>
+</section>
+
+<section data-label="Focus mode" data-speaker-notes="Default mode for typing. Side panes are glanceable; dwelling on one for 0.7 s pulls it forward." style="background:#0B0D10;color:#D6DCD8;display:grid;grid-template-columns:1.5fr 1fr;gap:70px;padding:100px 100px 80px;align-items:center;font-family:'DM Sans',sans-serif">
+  <img src="shots/focus.jpg" alt="Focus mode" style="width:100%;border:1px solid rgba(124,255,155,.3);border-radius:6px">
+  <div style="display:flex;flex-direction:column;gap:36px">
+    <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:64px;line-height:1.1">Focus mode</h2>
+    <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:24px;font-size:32px;line-height:1.3">
+      <li style="display:flex;gap:18px"><span style="color:#7CFF9B;font-family:'DM Mono',monospace">›</span><span>One window at full reading size, straight ahead</span></li>
+      <li style="display:flex;gap:18px"><span style="color:#7CFF9B;font-family:'DM Mono',monospace">›</span><span>Previous and next slot angled at the sides, live but dimmed</span></li>
+      <li style="display:flex;gap:18px"><span style="color:#7CFF9B;font-family:'DM Mono',monospace">›</span><span>Remaining slots in a numbered dock below</span></li>
+      <li style="display:flex;gap:18px"><span style="color:#7CFF9B;font-family:'DM Mono',monospace">›</span><span>Physical keyboard visible through passthrough</span></li>
+    </ul>
+  </div>
+</section>
+
+<section data-label="Deck mode" data-speaker-notes="For rollouts: deploy terminal centre, logs and dashboard beside it." style="background:#0B0D10;color:#D6DCD8;display:grid;grid-template-columns:1.5fr 1fr;gap:70px;padding:100px 100px 80px;align-items:center;font-family:'DM Sans',sans-serif">
+  <img src="shots/deck.jpg" alt="Deck mode" style="width:100%;border:1px solid rgba(124,255,155,.3);border-radius:6px">
+  <div style="display:flex;flex-direction:column;gap:36px">
+    <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:64px;line-height:1.1">Deck mode</h2>
+    <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:24px;font-size:32px;line-height:1.3">
+      <li style="display:flex;gap:18px"><span style="color:#7CFF9B;font-family:'DM Mono',monospace">›</span><span>Five slots in an arc, all readable without turning the head far</span></li>
+      <li style="display:flex;gap:18px"><span style="color:#7CFF9B;font-family:'DM Mono',monospace">›</span><span>Swipe or arrow keys rotate the deck one slot</span></li>
+      <li style="display:flex;gap:18px"><span style="color:#7CFF9B;font-family:'DM Mono',monospace">›</span><span>Meant for rollouts: deploy, logs, dashboard, CI, chat side by side</span></li>
+    </ul>
+  </div>
+</section>
+
+<section data-label="Wall mode" data-speaker-notes="The 'wall of monitors'. Everything dimmed to 50% except alerting slots, which glow red. Pinching a red tile acknowledges and focuses it." style="background:#0B0D10;color:#D6DCD8;display:grid;grid-template-columns:1.5fr 1fr;gap:70px;padding:100px 100px 80px;align-items:center;font-family:'DM Sans',sans-serif">
+  <img src="shots/wall.jpg" alt="Wall mode" style="width:100%;border:1px solid rgba(124,255,155,.3);border-radius:6px">
+  <div style="display:flex;flex-direction:column;gap:36px">
+    <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:64px;line-height:1.1">Wall mode</h2>
+    <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:24px;font-size:32px;line-height:1.3">
+      <li style="display:flex;gap:18px"><span style="color:#7CFF9B;font-family:'DM Mono',monospace">›</span><span>Every slot visible at once on a curved wall</span></li>
+      <li style="display:flex;gap:18px"><span style="color:#7CFF9B;font-family:'DM Mono',monospace">›</span><span>Quiet tiles dimmed; alerting tiles at full brightness with a red frame</span></li>
+      <li style="display:flex;gap:18px"><span style="color:#7CFF9B;font-family:'DM Mono',monospace">›</span><span>Alert sources: log patterns, CI results, dashboard thresholds, chat mentions</span></li>
+      <li style="display:flex;gap:18px"><span style="color:#7CFF9B;font-family:'DM Mono',monospace">›</span><span>Pinch an alerting tile to acknowledge it and drop into Focus</span></li>
+    </ul>
+  </div>
+</section>
+
+<section data-label="Switching" data-speaker-notes="Target: any window in under one second, hands on the keyboard. Four input paths, all mapped to the same slot model." style="background:#0E1215;color:#D6DCD8;display:flex;flex-direction:column;padding:100px 100px 80px;gap:52px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:64px;line-height:1.1">Switching in under a second</h2>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:20px">
+    <div style="display:flex;flex-direction:column;gap:20px;border-top:1px solid rgba(124,255,155,.3);padding-top:28px"><span style="font-family:'DM Mono',monospace;font-size:40px;color:#7CFF9B">Super+1…9</span><span style="font-size:30px;line-height:1.3">Jump to slot. Super+K opens a fuzzy finder over window titles. Same muscle memory as i3 or tmux.</span><span style="font-family:'DM Mono',monospace;font-size:26px;color:#6B7570">≈ 0.2 s</span></div>
+    <div style="display:flex;flex-direction:column;gap:20px;border-top:1px solid rgba(124,255,155,.3);padding-top:28px"><span style="font-family:'DM Mono',monospace;font-size:40px;color:#7CFF9B">Glance</span><span style="font-size:30px;line-height:1.3">Look at a side pane and it brightens. Hold the gaze 0.7 s and it comes forward. Hands never leave the keys.</span><span style="font-family:'DM Mono',monospace;font-size:26px;color:#6B7570">≈ 0.9 s</span></div>
+    <div style="display:flex;flex-direction:column;gap:20px;border-top:1px solid rgba(124,255,155,.3);padding-top:28px"><span style="font-family:'DM Mono',monospace;font-size:40px;color:#7CFF9B">Pinch · swipe</span><span style="font-size:30px;line-height:1.3">Pinch a tile to pull it to Focus. Swipe to rotate the Deck. Hand tracking, no controllers.</span><span style="font-family:'DM Mono',monospace;font-size:26px;color:#6B7570">≈ 0.6 s</span></div>
+    <div style="display:flex;flex-direction:column;gap:20px;border-top:1px solid rgba(124,255,155,.3);padding-top:28px"><span style="font-family:'DM Mono',monospace;font-size:40px;color:#7CFF9B">F · D · W</span><span style="font-size:30px;line-height:1.3">Mode keys. Tab cycles. The wrist panel offers the same three buttons for hands-only use.</span><span style="font-family:'DM Mono',monospace;font-size:26px;color:#6B7570">≈ 0.5 s</span></div>
+  </div>
+</section>
+
+<section data-label="Architecture" data-speaker-notes="Two components. Host agent on Ubuntu does capture, encode, input and collectors. Quest client is a native OpenXR app. No PC-side VR runtime needed, unlike WayVR/Stardust." style="background:#0B0D10;color:#D6DCD8;display:flex;flex-direction:column;padding:100px 100px 80px;gap:52px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:64px;line-height:1.1">Architecture: Ubuntu host agent and Quest client</h2>
+  <div style="display:grid;grid-template-columns:1fr 220px 1fr;gap:0;align-items:stretch;margin-top:10px;font-family:'DM Mono',monospace">
+    <div style="border:1px solid rgba(124,255,155,.4);padding:36px;display:flex;flex-direction:column;gap:22px">
+      <span style="font-size:32px;color:#7CFF9B">ekranaro-agent · Ubuntu 24.04</span>
+      <span style="font-size:26px;line-height:1.5;color:#D6DCD8">per-window capture — xdg-desktop-portal + PipeWire</span>
+      <span style="font-size:26px;line-height:1.5;color:#D6DCD8">encode — H.265 via VA-API / NVENC, one stream per slot</span>
+      <span style="font-size:26px;line-height:1.5;color:#D6DCD8">input — libei / uinput keyboard and pointer injection</span>
+      <span style="font-size:26px;line-height:1.5;color:#D6DCD8">collectors — CI APIs, Prometheus alerts, log patterns</span>
+      <span style="font-size:26px;line-height:1.5;color:#D6DCD8">discovery — mDNS, pairing by QR</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#6B7570;font-size:24px;text-align:center"><span style="color:#7CFF9B;font-size:40px">⟷</span><span>Wi-Fi 6E or USB-C</span><span>WebRTC / QUIC</span><span>≈ 10–20 ms</span></div>
+    <div style="border:1px solid rgba(124,255,155,.4);padding:36px;display:flex;flex-direction:column;gap:22px">
+      <span style="font-size:32px;color:#7CFF9B">ekranaro-quest · OpenXR app</span>
+      <span style="font-size:26px;line-height:1.5;color:#D6DCD8">decode — hardware H.265 to textures, Vulkan</span>
+      <span style="font-size:26px;line-height:1.5;color:#D6DCD8">slots, modes, dock, wrist panel</span>
+      <span style="font-size:26px;line-height:1.5;color:#D6DCD8">hand tracking, gaze proxy from head pose, passthrough</span>
+      <span style="font-size:26px;line-height:1.5;color:#D6DCD8">native panels — CI board, alert feed</span>
+      <span style="font-size:26px;line-height:1.5;color:#D6DCD8">sideloaded APK, later App Lab</span>
+    </div>
+  </div>
+  <p style="margin:0;font-size:28px;color:#6B7570">No PC-side VR runtime. The host only streams windows and data; all spatial logic runs on the headset.</p>
+</section>
+
+<section data-label="Stack choices" data-speaker-notes="Every piece is existing open tech; the project is integration plus the slot/mode UX." style="background:#0B0D10;color:#D6DCD8;display:flex;flex-direction:column;padding:100px 100px 80px;gap:52px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:64px;line-height:1.1">Open stack choices</h2>
+  <div style="display:grid;grid-template-columns:1fr 1.2fr 1.6fr;font-size:30px;line-height:1.3;border-top:1px solid rgba(214,220,216,.25)">
+    <div style="padding:20px 16px 20px 0;color:#6B7570;font-family:'DM Mono',monospace;font-size:24px">Need</div><div style="padding:20px 16px;color:#6B7570;font-family:'DM Mono',monospace;font-size:24px">Choice</div><div style="padding:20px 16px;color:#6B7570;font-family:'DM Mono',monospace;font-size:24px">Why</div>
+    <div style="padding:20px 16px 20px 0;border-top:1px solid rgba(214,220,216,.12)">Window capture</div><div style="padding:20px 16px;border-top:1px solid rgba(214,220,216,.12);font-family:'DM Mono',monospace">PipeWire + portal</div><div style="padding:20px 16px;border-top:1px solid rgba(214,220,216,.12)">Per-window, works on GNOME and KDE Wayland; the standard Ubuntu path</div>
+    <div style="padding:20px 16px 20px 0;border-top:1px solid rgba(214,220,216,.12)">Headset runtime</div><div style="padding:20px 16px;border-top:1px solid rgba(214,220,216,.12);font-family:'DM Mono',monospace">OpenXR native</div><div style="padding:20px 16px;border-top:1px solid rgba(214,220,216,.12)">Runs on the Quest itself, no SteamVR/Monado on the host</div>
+    <div style="padding:20px 16px 20px 0;border-top:1px solid rgba(214,220,216,.12)">Transport</div><div style="padding:20px 16px;border-top:1px solid rgba(214,220,216,.12);font-family:'DM Mono',monospace">WebRTC or QUIC</div><div style="padding:20px 16px;border-top:1px solid rgba(214,220,216,.12)">Low latency, NAT-friendly, per-stream bitrate control</div>
+    <div style="padding:20px 16px 20px 0;border-top:1px solid rgba(214,220,216,.12)">Languages</div><div style="padding:20px 16px;border-top:1px solid rgba(214,220,216,.12);font-family:'DM Mono',monospace">Rust agent, C++/Rust client</div><div style="padding:20px 16px;border-top:1px solid rgba(214,220,216,.12)">Same choices as WayVR and Stardust XR; shared contributors possible</div>
+    <div style="padding:20px 16px 20px 0;border-top:1px solid rgba(214,220,216,.12)">Text input</div><div style="padding:20px 16px;border-top:1px solid rgba(214,220,216,.12);font-family:'DM Mono',monospace">Physical keyboard</div><div style="padding:20px 16px;border-top:1px solid rgba(214,220,216,.12)">Passthrough shows the real keyboard; no virtual keyboard in v1</div>
+    <div style="padding:20px 16px 20px 0;border-top:1px solid rgba(214,220,216,.12)">License</div><div style="padding:20px 16px;border-top:1px solid rgba(214,220,216,.12);font-family:'DM Mono',monospace">Apache-2.0</div><div style="padding:20px 16px;border-top:1px solid rgba(214,220,216,.12)">Permissive for companies that want to ship it internally</div>
+  </div>
+</section>
+
+<section data-label="Roadmap" data-speaker-notes="Four phases. Phase 1 is deliberately boring: stream windows, type into them." style="background:#0E1215;color:#D6DCD8;display:flex;flex-direction:column;padding:100px 100px 80px;gap:52px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:64px;line-height:1.1">Roadmap</h2>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:20px">
+    <div style="display:flex;flex-direction:column;gap:20px;border-top:3px solid #7CFF9B;padding-top:28px"><span style="font-family:'DM Mono',monospace;font-size:26px;color:#6B7570">PHASE 1 · 3 months</span><span style="font-size:36px;color:#D6DCD8">Stream and type</span><span style="font-size:28px;line-height:1.35;color:#D6DCD8">Agent captures windows, Quest shows them in Focus mode, keyboard and mouse pass through.</span></div>
+    <div style="display:flex;flex-direction:column;gap:20px;border-top:3px solid rgba(124,255,155,.5);padding-top:28px"><span style="font-family:'DM Mono',monospace;font-size:26px;color:#6B7570">PHASE 2 · 3 months</span><span style="font-size:36px;color:#D6DCD8">Slots and modes</span><span style="font-size:28px;line-height:1.35;color:#D6DCD8">Hotkeys, finder, Deck and Wall, glance dwell, hand pinch and swipe.</span></div>
+    <div style="display:flex;flex-direction:column;gap:20px;border-top:3px solid rgba(124,255,155,.3);padding-top:28px"><span style="font-family:'DM Mono',monospace;font-size:26px;color:#6B7570">PHASE 3 · 3 months</span><span style="font-size:36px;color:#D6DCD8">Alerts and native panels</span><span style="font-size:28px;line-height:1.35;color:#D6DCD8">Collectors for GitHub Actions, GitLab, Jenkins, Prometheus; CI board and alert feed in-headset.</span></div>
+    <div style="display:flex;flex-direction:column;gap:20px;border-top:3px solid rgba(124,255,155,.15);padding-top:28px"><span style="font-family:'DM Mono',monospace;font-size:26px;color:#6B7570">PHASE 4</span><span style="font-size:36px;color:#D6DCD8">Polish and distribution</span><span style="font-size:28px;line-height:1.35;color:#D6DCD8">Ubuntu .deb and snap, App Lab listing, saved layouts per project, other headsets via OpenXR.</span></div>
+  </div>
+</section>
+
+<section data-label="Contribute" data-speaker-notes="Close on concrete asks." style="background:#0B0D10;color:#D6DCD8;display:grid;grid-template-columns:1fr 1fr;gap:80px;padding:100px 100px 80px;align-items:center;font-family:'DM Sans',sans-serif">
+  <div style="display:flex;flex-direction:column;gap:40px">
+    <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:64px;line-height:1.1">How to contribute</h2>
+    <p style="margin:0;font-size:34px;line-height:1.35;text-wrap:pretty">Two repos, one spec. The slot and mode model is a small protocol document, so clients for other headsets and agents for other desktops can follow.</p>
+    <div style="font-family:'DM Mono',monospace;font-size:28px;color:#7CFF9B;display:flex;flex-direction:column;gap:12px"><span>github.com/ekranaro/agent</span><span>github.com/ekranaro/quest</span><span>github.com/ekranaro/spec</span></div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:28px;font-size:30px;line-height:1.3">
+    <span style="font-family:'DM Mono',monospace;font-size:26px;color:#6B7570">GOOD FIRST ISSUES</span>
+    <span style="border-top:1px solid rgba(214,220,216,.12);padding-top:20px">PipeWire per-window capture on KDE Plasma</span>
+    <span style="border-top:1px solid rgba(214,220,216,.12);padding-top:20px">VA-API encode path for Intel iGPUs</span>
+    <span style="border-top:1px solid rgba(214,220,216,.12);padding-top:20px">GitLab CI collector</span>
+    <span style="border-top:1px solid rgba(214,220,216,.12);padding-top:20px">Log alert patterns as a shared ruleset</span>
+    <span style="border-top:1px solid rgba(214,220,216,.12);padding-top:20px">Wrist panel layout for left-handed use</span>
+  </div>
+</section>
+
+</x-import>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#0B0D10;color:#D6DCD8;font-family:'DM Sans',Helvetica,sans-serif;}
+a{color:#7CFF9B}a:hover{color:#B8FFCB}
+*{box-sizing:border-box}
+</style>
+</helmet>
+<div style="max-width:880px;margin:0 auto;padding:72px 24px 120px;display:flex;flex-direction:column;gap:56px;font-size:18px;line-height:1.6">
+  <header style="display:flex;flex-direction:column;gap:20px">
+    <div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.2em;color:#7CFF9B">EKRANARO · PRE-ALPHA · APACHE-2.0</div>
+    <h1 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:clamp(40px,7vw,72px);line-height:1;color:#D6DCD8">Ekranaro</h1>
+    <p style="margin:0;font-size:clamp(20px,2.6vw,26px);line-height:1.35;color:#D6DCD8;text-wrap:pretty">An open-source DevOps cockpit for Meta Quest 3. Your Ubuntu windows as numbered slots in space, three layouts to arrange them, and alerts that find you.</p>
+    <p style="margin:0;font-family:'DM Mono',monospace;font-size:14px;color:#6B7570">ekran·aro — Esperanto, “a set of screens”</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;font-family:'DM Mono',monospace;font-size:14px">
+      <a href="prototype.html" style="padding:10px 16px;border:1px solid #7CFF9B;border-radius:3px;text-decoration:none;color:#7CFF9B">Try the interactive prototype →</a>
+      <a href="vision-deck.html" style="padding:10px 16px;border:1px solid rgba(214,220,216,.25);border-radius:3px;text-decoration:none;color:#D6DCD8">Vision deck</a>
+    </div>
+  </header>
+  <img src="shots/wall.jpg" alt="Wall mode with two alerting slots" style="width:100%;border:1px solid rgba(124,255,155,.3);border-radius:6px">
+
+  <section style="display:flex;flex-direction:column;gap:16px">
+    <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:22px;color:#7CFF9B">Why</h2>
+    <p style="margin:0;text-wrap:pretty">Ops work is many small windows: terminals, SSH sessions, a log tail, a rollout status, CI, Grafana, chat. VR desktops today (Virtual Desktop, Immersed, Horizon Workrooms, WayVR, Stardust XR) stream monitors or screens into space. None of them know what a window, a hotkey or an alert is, and only the last two run from a Linux host.</p>
+    <p style="margin:0;text-wrap:pretty">Ekranaro treats each window as a slot, keeps switching on the keyboard, and adds a wall mode so you can watch everything at once and be pulled to what breaks.</p>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:16px">
+    <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:22px;color:#7CFF9B">Modes</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+      <div style="border:1px solid rgba(214,220,216,.15);padding:20px;display:flex;flex-direction:column;gap:8px"><span style="font-family:'DM Mono',monospace;color:#7CFF9B">F · Focus</span><span style="color:#D6DCD8">One slot large, previous and next angled at the sides, the rest in a dock.</span></div>
+      <div style="border:1px solid rgba(214,220,216,.15);padding:20px;display:flex;flex-direction:column;gap:8px"><span style="font-family:'DM Mono',monospace;color:#7CFF9B">D · Deck</span><span style="color:#D6DCD8">Five slots in an arc at reading distance. Swipe or arrows rotate it.</span></div>
+      <div style="border:1px solid rgba(214,220,216,.15);padding:20px;display:flex;flex-direction:column;gap:8px"><span style="font-family:'DM Mono',monospace;color:#7CFF9B">W · Wall</span><span style="color:#D6DCD8">Every slot on a wall, dimmed, except alerting ones. Pinch to acknowledge and focus.</span></div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:16px">
+    <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:22px;color:#7CFF9B">Switching</h2>
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:10px 24px;font-size:17px">
+      <span style="font-family:'DM Mono',monospace;color:#D6DCD8">Super+1…9</span><span style="color:#D6DCD8">jump to slot</span>
+      <span style="font-family:'DM Mono',monospace;color:#D6DCD8">Super+K</span><span style="color:#D6DCD8">fuzzy finder over window titles</span>
+      <span style="font-family:'DM Mono',monospace;color:#D6DCD8">F · D · W · Tab</span><span style="color:#D6DCD8">change or cycle mode</span>
+      <span style="font-family:'DM Mono',monospace;color:#D6DCD8">gaze 0.7 s</span><span style="color:#D6DCD8">glance a side pane; dwell pulls it forward</span>
+      <span style="font-family:'DM Mono',monospace;color:#D6DCD8">pinch · swipe</span><span style="color:#D6DCD8">pull a tile to focus · rotate the deck</span>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:16px">
+    <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:22px;color:#7CFF9B">Architecture</h2>
+    <pre style="margin:0;padding:20px;border:1px solid rgba(214,220,216,.15);border-radius:4px;font-family:'DM Mono',monospace;font-size:14px;line-height:1.6;color:#D6DCD8;overflow:auto">ekranaro-agent (Ubuntu 24.04, Rust)          ekranaro-quest (OpenXR, Quest 3)
+  per-window capture  xdg-desktop-portal      hardware H.265 decode → Vulkan textures
+  encode              H.265 VA-API / NVENC    slots · modes · dock · wrist panel
+  input               libei / uinput          hand tracking · head-pose gaze · passthrough
+  collectors          CI APIs · Prometheus    native panels: CI board · alert feed
+  discovery           mDNS · QR pairing
+                 ──── Wi-Fi 6E or USB-C · WebRTC/QUIC · ~10–20 ms ────</pre>
+    <p style="margin:0;color:#6B7570;font-size:16px">No PC-side VR runtime. The host streams windows and data; spatial logic runs on the headset.</p>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:16px">
+    <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:22px;color:#7CFF9B">Status and roadmap</h2>
+    <ol style="margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px;color:#D6DCD8">
+      <li><span style="color:#D6DCD8">Stream and type — capture, Focus mode, keyboard and mouse passthrough</span></li>
+      <li><span style="color:#D6DCD8">Slots and modes — hotkeys, finder, Deck, Wall, glance, pinch and swipe</span></li>
+      <li><span style="color:#D6DCD8">Alerts and native panels — GitHub Actions, GitLab, Jenkins, Prometheus collectors</span></li>
+      <li><span style="color:#D6DCD8">Polish and distribution — .deb and snap, App Lab, saved layouts, other OpenXR headsets</span></li>
+    </ol>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:16px">
+    <h2 style="margin:0;font-family:'DM Mono',monospace;font-weight:500;font-size:22px;color:#7CFF9B">Contributing</h2>
+    <p style="margin:0;text-wrap:pretty">Three repos: <span style="font-family:'DM Mono',monospace">agent</span>, <span style="font-family:'DM Mono',monospace">quest</span>, <span style="font-family:'DM Mono',monospace">spec</span>. The spec is a short protocol document for slots, modes and alerts, so other clients and agents can follow it. Good first issues: KDE Plasma per-window capture, VA-API path for Intel iGPUs, GitLab CI collector, shared log alert ruleset, left-handed wrist panel.</p>
+  </section>
+</div>
+</x-dc>
+</body>
+</html>
